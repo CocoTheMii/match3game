@@ -20,6 +20,8 @@ class Tile(pygame.sprite.Sprite):
             else:
                 selected_group.add(self)
             print(selected_group)
+            return(True)
+        return(False)
 
 # create game window
 pygame.init()
@@ -32,13 +34,13 @@ start_y = 10    # starting y of grid
 size = 48       # side length of tiles
 spacing = 24    # spacing between tiles
 
-colors = [pygame.Color("#F94144"),
-          pygame.Color("#F3722C"),
-          pygame.Color("#F8961E"),
-          pygame.Color("#F9C74F"),
-          pygame.Color("#90BE6D"),
-          pygame.Color("#43AA8B"),
-          pygame.Color("#577590")]
+colors = [pygame.Color("#F94144"),  # red
+          pygame.Color("#F3722C"),  # orange
+          pygame.Color("#F8961E"),  # yellow orange
+          pygame.Color("#F9C74F"),  # yellow
+          pygame.Color("#90BE6D"),  # green
+          pygame.Color("#43AA8B"),  # teal
+          pygame.Color("#577590")]  # blue
 
 # create tiles
 tiles = pygame.sprite.Group()
@@ -61,8 +63,9 @@ while running == True:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mouse_pos = pygame.mouse.get_pos()
             for t in tiles:
-                t.check_click(event.pos, selected)
-                t.image.fill((255,0,0))
+                click = t.check_click(event.pos, selected)
+                if click == True:
+                    t.image.fill((255,0,0))
     for t in selected:
         t.image.fill((0,255,0))
     
