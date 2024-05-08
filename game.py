@@ -34,23 +34,30 @@ start_y = 10    # starting y of grid
 size = 48       # side length of tiles
 spacing = 24    # spacing between tiles
 
-colors = [pygame.Color("#F94144"),  # red
-          pygame.Color("#F3722C"),  # orange
-          pygame.Color("#F8961E"),  # yellow orange
-          pygame.Color("#F9C74F"),  # yellow
-          pygame.Color("#90BE6D"),  # green
-          pygame.Color("#43AA8B"),  # teal
-          pygame.Color("#577590")]  # blue
+colors = [pygame.Color("#ff3355"),  # red
+          pygame.Color("#ff8c1a"),  # orange
+          pygame.Color("#ffbf00"),  # yellow
+          pygame.Color("#59c059"),  # green
+          pygame.Color("#0da57a"),  # teal
+          pygame.Color("#4d97ff"),  # blue
+          pygame.Color("#cf63cf")]  # purple
 
 # create tiles
 tiles = pygame.sprite.Group()
 selected = pygame.sprite.Group()
+color_bag = colors
+color_index = 0
 
 for row in range(8):
     for col in range(8):
         x = start_x + (size + spacing) * (col % 8)
         y = start_y + (size + spacing) * (row % 8)
-        color = random.choice(colors)
+        if color_index == 7:
+            random.shuffle(color_bag)
+            color_index = 0
+        print(len(color_bag))
+        color = color_bag[color_index]
+        color_index += 1
         tiles.add(Tile(x, y, color, size))
 
 
@@ -69,7 +76,7 @@ while running == True:
     for t in selected:
         t.image.fill((0,255,0))
     
-    window.fill(pygame.Color("#e9ecef"))
+    window.fill(pygame.Color("#e9ecef")) # grey background
     tiles.update()
     tiles.draw(window)
     pygame.display.update()
