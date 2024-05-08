@@ -33,6 +33,7 @@ start_x = 10    # starting x of grid
 start_y = 10    # starting y of grid
 size = 48       # side length of tiles
 spacing = 24    # spacing between tiles
+grid_size = 8   # number of tiles per row/column
 
 colors = [pygame.Color("#ff3355"),  # red
           pygame.Color("#ff8c1a"),  # orange
@@ -48,10 +49,10 @@ selected = pygame.sprite.Group()
 color_bag = colors
 color_index = 0
 
-for row in range(8):
-    for col in range(8):
-        x = start_x + (size + spacing) * (col % 8)
-        y = start_y + (size + spacing) * (row % 8)
+for row in range(grid_size):
+    for col in range(grid_size):
+        x = start_x + (size + spacing) * (col % grid_size)
+        y = start_y + (size + spacing) * (row % grid_size)
         if color_index == 7:
             random.shuffle(color_bag)
             color_index = 0
