@@ -55,7 +55,6 @@ for row in range(8):
         if color_index == 7:
             random.shuffle(color_bag)
             color_index = 0
-        print(len(color_bag))
         color = color_bag[color_index]
         color_index += 1
         tiles.add(Tile(x, y, color, size))
