@@ -20,7 +20,6 @@ class Tile(pygame.sprite.Sprite):
                 selected_group.remove(self)
             else:
                 selected_group.add(self)
-            print(selected_group)
             return(True)
         return(False)
 
@@ -118,7 +117,7 @@ while running == True:
             for t in tiles:
                 click = t.check_click(event.pos, selected)
                 if click == True:
-                    t.image.fill((255,0,0))
+                    t.image.fill(t.color)
     for t in selected:
         t.image.fill((0,255,0))
     
