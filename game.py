@@ -8,6 +8,7 @@ class Tile(pygame.sprite.Sprite):
 
         self.image = pygame.Surface((size, size))
         self.image.fill(color)
+        self.color = color
 
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -22,6 +23,47 @@ class Tile(pygame.sprite.Sprite):
             print(selected_group)
             return(True)
         return(False)
+
+
+# define functions
+def check_matches(tile_grid, grid_size, colors, mode="full"):
+    matches = []
+
+    # check for horizontal matches
+    if (mode == "row") or (mode == "full"):
+        for row in range(grid_size):
+            tile_run = []
+            for col in range(grid_size):
+                t = tile_grid[row][col]
+                if (len(tile_run) == 0) or (t.color == tile_run[-1].color):
+                    tile_run.append(t)
+                else:
+                    if len(tile_run) >= 3:
+                        matches.append(tile_run)
+                    tile_run = [t]
+
+    # check for vertical matches
+    if (mode == "col") or (mode == "full"):
+        for col in range(grid_size):
+            tile_run = []
+            for row in range(grid_size):
+                t = tile_grid[row][col]
+                if (len(tile_run) == 0) or (t.color == tile_run[-1].color):
+                    tile_run.append(t)
+                else:
+                    if len(tile_run) >= 3:
+                        matches.append(tile_run)
+                    tile_run = [t]
+    
+    # randomize any matching tiles
+    for group in matches:
+        for t in group:
+            t.color = random.choice(colors)
+            t.image.fill(t.color)
+    # check again to remove any newly created matches
+    if len(matches) > 0:
+        check_matches(tile_grid, grid_size, colors)
+
 
 # create game window
 pygame.init()
@@ -44,12 +86,14 @@ colors = [pygame.Color("#ff3355"),  # red
           pygame.Color("#cf63cf")]  # purple
 
 # create tiles
+tile_grid = []
 tiles = pygame.sprite.Group()
 selected = pygame.sprite.Group()
 color_bag = colors
 color_index = 0
 
 for row in range(grid_size):
+    tile_grid.append([])
     for col in range(grid_size):
         x = start_x + (size + spacing) * (col % grid_size)
         y = start_y + (size + spacing) * (row % grid_size)
@@ -58,8 +102,10 @@ for row in range(grid_size):
             color_index = 0
         color = color_bag[color_index]
         color_index += 1
-        tiles.add(Tile(x, y, color, size))
+        tile_grid[row].append(Tile(x, y, color, size))
+        tiles.add(tile_grid[row][col])
 
+check_matches(tile_grid, grid_size, colors)
 
 # game loop
 running = True
