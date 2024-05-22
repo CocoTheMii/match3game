@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 
 # setup classes
 class Tile(pygame.sprite.Sprite):
@@ -22,6 +23,16 @@ class Tile(pygame.sprite.Sprite):
                 selected_group.add(self)
             return(True)
         return(False)
+
+class SelectFrame(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+
+        self.image = pygame.image.load(os.path.join("assets", "select.png"))
+
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
 
 # define functions
@@ -90,6 +101,7 @@ tiles = pygame.sprite.Group()
 selected = pygame.sprite.Group()
 color_bag = colors
 color_index = 0
+selectors = pygame.sprite.Group()
 
 for row in range(grid_size):
     tile_grid.append([])
@@ -117,13 +129,17 @@ while running == True:
             for t in tiles:
                 click = t.check_click(event.pos, selected)
                 if click == True:
-                    t.image.fill(t.color)
+                    print(selected)
     for t in selected:
-        t.image.fill((0,255,0))
+        x = t.rect.x - spacing / 2
+        y = t.rect.y - spacing / 2
+        selectors.add(SelectFrame(x, y))
     
     window.fill(pygame.Color("#e9ecef")) # grey background
     tiles.update()
     tiles.draw(window)
+    selectors.update()
+    selectors.draw(window)
     pygame.display.update()
 
 pygame.quit()
