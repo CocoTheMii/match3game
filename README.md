@@ -1,7 +1,22 @@
 # Match 3 Game
-An amateur attempt at creating a Bejeweled clone in Python.
+An amateur attempt at creating a Bejeweled clone in pygame.
 
 Started as a capstone project, currently just a hobby.
+
+## How to run
+1. Clone this repository.
+```
+git clone https://github.com/CocoTheMii/match3game
+```
+2. Install pygame.
+```
+cd match3game
+pip install pygame
+```
+3. Run game.py with Python 3.
+```
+python game.py
+```
 
 ## Implemented so far
 Right now, the game is very incomplete, but some rudimentary functions are implemented.
