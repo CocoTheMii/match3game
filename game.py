@@ -2,13 +2,18 @@ import pygame
 import random
 import os
 
+assets = {
+    "tile": os.path.join("assets", "tile.png"),
+    "selector": os.path.join("assets", "select.png")
+    }
+
 # setup classes
 class Tile(pygame.sprite.Sprite):
     def __init__(self, x, y, color, size):
         super().__init__()
 
-        self.image = pygame.Surface((size, size))
-        self.image.fill(color)
+        self.image = pygame.image.load(assets["tile"])
+        self.image.fill(color, special_flags=pygame.BLEND_MIN)
         self.color = color
 
         self.rect = self.image.get_rect()
@@ -28,7 +33,7 @@ class SelectFrame(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
 
-        self.image = pygame.image.load(os.path.join("assets", "select.png"))
+        self.image = pygame.image.load(assets["selector"])
 
         self.rect = self.image.get_rect()
         self.rect.x = x
