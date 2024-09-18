@@ -130,6 +130,7 @@ while running == True:
                 click = t.check_click(event.pos, selected)
                 if click == True:
                     print(selected)
+    selectors.empty()
     for t in selected:
         x = t.rect.x - spacing / 2
         y = t.rect.y - spacing / 2
