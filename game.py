@@ -137,8 +137,8 @@ while running == True:
                     print(selected)
     selectors.empty()
     for t in selected:
-        x = t.rect.x - spacing / 2
-        y = t.rect.y - spacing / 2
+        x = t.rect.x - spacing / 2 + 4
+        y = t.rect.y - spacing / 2 + 4
         selectors.add(SelectFrame(x, y))
     
     window.fill(pygame.Color("#e9ecef")) # grey background
