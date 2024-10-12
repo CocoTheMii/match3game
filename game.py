@@ -120,8 +120,6 @@ colors = [pygame.Color("#ff3355"),  # red
 tile_grid = []
 tiles = pygame.sprite.Group()
 selected = pygame.sprite.Group()
-color_bag = colors
-color_index = 0
 selectors = pygame.sprite.Group()
 
 for row in range(grid_size):
