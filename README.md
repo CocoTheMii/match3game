@@ -48,6 +48,4 @@ In its current state, this is barely a playable game. There are still many thing
 ## Known issues
 This is a list of known issues with the code in its current state. Obviously, this doesn't include missing features (see [To do](#to-do) for that).
 
-* Tile texture sometimes fails to load
-  * Appears as a square
-  * Not sure what causes this
+* *None at the moment*

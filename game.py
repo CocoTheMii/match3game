@@ -39,8 +39,24 @@ class SelectFrame(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+def check_matches(tile_grid, row, col, color):
+    match = False
 
-# define functions
+    if row >= 2:
+        if tile_grid[row-1][col].color == tile_grid[row-2][col].color == color:
+            match = True
+            print(str(row) + " " + str(col) + " " + str(color))
+    if col >= 2:
+        if tile_grid[row][col-1].color == tile_grid[row][col-2].color == color:
+            match = True
+            print(str(row) + " " + str(col) + " " + str(color))
+    
+    return match
+
+# found the culprit of the square tiles bug!
+# some old randomizing code i forgot to update
+
+""" # define functions
 def check_matches(tile_grid, grid_size, colors, mode="full"):
     matches = []
 
@@ -77,7 +93,7 @@ def check_matches(tile_grid, grid_size, colors, mode="full"):
             t.image.fill(t.color)
     # check again to remove any newly created matches
     if len(matches) > 0:
-        check_matches(tile_grid, grid_size, colors)
+        check_matches(tile_grid, grid_size, colors) """
 
 
 # create game window
@@ -113,15 +129,16 @@ for row in range(grid_size):
     for col in range(grid_size):
         x = start_x + (size + spacing) * (col % grid_size)
         y = start_y + (size + spacing) * (row % grid_size)
-        if color_index == 7:
-            random.shuffle(color_bag)
-            color_index = 0
-        color = color_bag[color_index]
-        color_index += 1
+
+        match = True
+        while match:
+            color = random.choice(colors)
+            match = check_matches(tile_grid, row, col, color)
+        
         tile_grid[row].append(Tile(x, y, color, size))
         tiles.add(tile_grid[row][col])
 
-check_matches(tile_grid, grid_size, colors)
+#check_matches(tile_grid, grid_size, colors)
 
 # game loop
 running = True
@@ -135,6 +152,7 @@ while running == True:
                 click = t.check_click(event.pos, selected)
                 if click == True:
                     print(selected)
+                    print(t.color)
     selectors.empty()
     for t in selected:
         x = t.rect.x - spacing / 2 + 4
