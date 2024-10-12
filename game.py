@@ -45,11 +45,11 @@ def check_matches(tile_grid, row, col, color):
     if row >= 2:
         if tile_grid[row-1][col].color == tile_grid[row-2][col].color == color:
             match = True
-            print(str(row) + " " + str(col) + " " + str(color))
+            print("MATCH: " + str(row) + " " + str(col) + " " + str(color))
     if col >= 2:
         if tile_grid[row][col-1].color == tile_grid[row][col-2].color == color:
             match = True
-            print(str(row) + " " + str(col) + " " + str(color))
+            print("MATCH: " + str(row) + " " + str(col) + " " + str(color))
     
     return match
 
@@ -137,8 +137,6 @@ for row in range(grid_size):
         
         tile_grid[row].append(Tile(x, y, color, size))
         tiles.add(tile_grid[row][col])
-
-#check_matches(tile_grid, grid_size, colors)
 
 # game loop
 running = True

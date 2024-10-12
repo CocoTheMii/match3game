@@ -35,7 +35,7 @@ In its current state, this is barely a playable game. There are still many thing
 * Swapping tiles
 * Only allow selecting one tile at a time
 * Remove matches from the board
-  * This is currently done at startup, but the check is only run once and could probably use improvement
+  * Should be relatively straightforward with the newly rewritten check function
 * Scoring
 * Levels
 * Powerups
