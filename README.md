@@ -26,6 +26,7 @@ Right now, the game is very incomplete, but some rudimentary functions are imple
   * Checks the board to prevent generating with any matches
 * Allows selecting and deselecting tiles by clicking on them
 * Displays an outline around selected tiles
+* Tiles can be swapped by selecting two of them
 
 ...and that's about it.
 
@@ -33,6 +34,7 @@ Right now, the game is very incomplete, but some rudimentary functions are imple
 In its current state, this is barely a playable game. There are still many things that need to be done.
 
 * Swapping tiles
+  * Currently working on this; still need to tween, and check for proximity
 * Only allow selecting one tile at a time
 * Remove matches from the board
   * Should be relatively straightforward with the newly rewritten check function

@@ -53,6 +53,31 @@ def check_matches(tile_grid, row, col, color):
     
     return match
 
+def swap(tile_grid, tiles):
+    index = []
+    for t in tiles:
+        for row in tile_grid:
+            for col in row:
+                if col == t:
+                    break
+            else:
+                continue
+            break
+        col = row.index(col)
+        row = tile_grid.index(row)
+        index.append([row, col])
+
+    pos1 = [tiles[0].rect.x, tiles[0].rect.y]
+    pos2 = [tiles[1].rect.x, tiles[1].rect.y]
+
+    tiles[0].rect.x = pos2[0]
+    tiles[0].rect.y = pos2[1]
+    tiles[1].rect.x = pos1[0]
+    tiles[1].rect.y = pos1[1]
+
+    tile_grid[index[0][0]][index[0][1]] = tiles[1]
+    tile_grid[index[1][0]][index[1][1]] = tiles[0]
+
 # found the culprit of the square tiles bug!
 # some old randomizing code i forgot to update
 
@@ -136,6 +161,8 @@ for row in range(grid_size):
         tile_grid[row].append(Tile(x, y, color, size))
         tiles.add(tile_grid[row][col])
 
+swap(tile_grid, [tile_grid[0][0], tile_grid[0][1]])
+
 # game loop
 running = True
 while running == True:
@@ -150,10 +177,15 @@ while running == True:
                     print(selected)
                     print(t.color)
     selectors.empty()
-    for t in selected:
+    if len(selected.sprites()) == 1:
+        t = selected.sprites()[0]
         x = t.rect.x - spacing / 2 + 4
         y = t.rect.y - spacing / 2 + 4
         selectors.add(SelectFrame(x, y))
+    elif len(selected.sprites()) == 2:
+        swap(tile_grid, selected.sprites())
+        selected.empty()
+            
     
     window.fill(pygame.Color("#e9ecef")) # grey background
     tiles.update()
