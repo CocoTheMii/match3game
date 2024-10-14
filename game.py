@@ -165,8 +165,6 @@ for row in range(grid_size):
         tile_grid[row].append(Tile(x, y, color, size))
         tiles.add(tile_grid[row][col])
 
-swap(tile_grid, [tile_grid[0][0], tile_grid[0][1]])
-
 # game loop
 running = True
 while running == True:
