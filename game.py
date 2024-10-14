@@ -39,16 +39,20 @@ class SelectFrame(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-def check_matches(tile_grid, row, col, color):
+def check_matches(tile_grid, row, col, color, alldir=True):
     match = False
 
     if row >= 2:
-        if tile_grid[row-1][col].color == tile_grid[row-2][col].color == color:
-            match = True
+        match = tile_grid[row-1][col].color == tile_grid[row-2][col].color == color
+        if alldir:
+            match = match or (tile_grid[row+1][col].color == tile_grid[row+2][col].color == color)
+        if match:
             print("MATCH: " + str(row) + " " + str(col) + " " + str(color))
     if col >= 2:
-        if tile_grid[row][col-1].color == tile_grid[row][col-2].color == color:
-            match = True
+        match = tile_grid[row][col-1].color == tile_grid[row][col-2].color == color
+        if alldir:
+            match = match or (tile_grid[row][col+1].color == tile_grid[row][col+2].color == color)
+        if match:
             print("MATCH: " + str(row) + " " + str(col) + " " + str(color))
     
     return match
@@ -67,13 +71,13 @@ def swap(tile_grid, tiles):
         row = tile_grid.index(row)
         index.append([row, col])
 
-    pos1 = [tiles[0].rect.x, tiles[0].rect.y]
-    pos2 = [tiles[1].rect.x, tiles[1].rect.y]
+    x1, y1 = tiles[0].rect.x, tiles[0].rect.y
+    x2, y2 = tiles[1].rect.x, tiles[1].rect.y
 
-    tiles[0].rect.x = pos2[0]
-    tiles[0].rect.y = pos2[1]
-    tiles[1].rect.x = pos1[0]
-    tiles[1].rect.y = pos1[1]
+    tiles[0].rect.x = x2
+    tiles[0].rect.y = y2
+    tiles[1].rect.x = x1
+    tiles[1].rect.y = y1
 
     tile_grid[index[0][0]][index[0][1]] = tiles[1]
     tile_grid[index[1][0]][index[1][1]] = tiles[0]
@@ -156,7 +160,7 @@ for row in range(grid_size):
         match = True
         while match:
             color = random.choice(colors)
-            match = check_matches(tile_grid, row, col, color)
+            match = check_matches(tile_grid, row, col, color, False)
         
         tile_grid[row].append(Tile(x, y, color, size))
         tiles.add(tile_grid[row][col])
