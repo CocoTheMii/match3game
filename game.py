@@ -49,7 +49,7 @@ def check_matches(tile_grid, row, col, color, alldir=True):
         if match:
             print("MATCH: " + str(row) + " " + str(col) + " " + str(color))
     if col >= 2:
-        match = tile_grid[row][col-1].color == tile_grid[row][col-2].color == color
+        match = match or tile_grid[row][col-1].color == tile_grid[row][col-2].color == color
         if alldir:
             match = match or (tile_grid[row][col+1].color == tile_grid[row][col+2].color == color)
         if match:
